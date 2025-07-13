@@ -4,20 +4,20 @@ test('deve logar com sucesso', async ({page})=> {
 
 
     const user = {
-        username: 'Marcia',
+        username: 'marciamagax',
         password: '123456'
     }
 
     await page.goto('http://localhost:3000/login')
 
-    await page.locator('#username').fill(user.username)
-    await page.locator('#password').fill(user.password)
+    await page.locator('input[placeholder="Seu @username incrível"]').fill(user.username)
+    await page.locator('input[placeholder="Digite sua senha secreta"]').fill(user.password)
 
 
     await page.locator('button[type="submit"]').click()
 
     const title = page.locator('h1')
-    await expect(title).toContainText('Bem-vindo de volta!')
+    await expect(title).toContainText('Olá, Marcia!')
 
 
     await page.waitForTimeout(3000)
