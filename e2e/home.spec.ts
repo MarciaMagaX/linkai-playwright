@@ -6,7 +6,8 @@ test('deve exibir o título', async ({ page }) => {
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Linkaí/);
 
-  await page.waitForTimeout(3000)
+  // await page.waitForTimeout(3000)
+  await page.click
 });
 
 
