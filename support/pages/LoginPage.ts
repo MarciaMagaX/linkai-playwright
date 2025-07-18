@@ -3,7 +3,7 @@ import {Page} from '@playwright/test'
 
 import { User } from '../fixtures/user'
 
-export function getLoginPage(page){
+export function getLoginPage(page: Page){
     return{
         open: async ()=> {
             await page.goto('http://localhost:3000/login')
