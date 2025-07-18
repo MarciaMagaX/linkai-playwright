@@ -1,18 +1,21 @@
 import {Page} from '@playwright/test'
 // ação abrir a página da aplicação
+
+import { User } from '../fixtures/user'
+
 export function getLoginPage(page){
     return{
         open: async ()=> {
             await page.goto('http://localhost:3000/login')
         },
-        submit: async (username: string, password: string)=> {
+        submit: async (user: User)=> {
              await page
                 .getByRole('textbox', { name: 'Seu @username incrível' })
-                .fill(username);
+                .fill(user.username);
               
               await page
                 .getByRole('textbox', { name: 'Digite sua senha secreta' })
-                .fill(password);
+                .fill(user.password);
               await page
                 .getByRole('button', { name: 'Entrar' })
                 .click()
