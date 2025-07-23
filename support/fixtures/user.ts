@@ -1,39 +1,65 @@
 export interface User {
   name: string
   username: string
+  email: string
   password: string
+  confirmPassword?: string
+}
+
+function makeUser({ name, username, email, password, confirmPassword }: Partial<User> & { password: string }): User {
+  return {
+    name: name ?? '',
+    username: username ?? '',
+    email: email ?? '',
+    password,
+    confirmPassword: confirmPassword ?? password,
+  }
 }
 
 export const Users = {
-  validUser: {
+  alreadyExists: makeUser({
     name: 'Marcia',
     username: 'marciamagax',
+    email: 'marcia@gmail.com',
     password: '123456',
-  },
-  invalidPassword: {
-    name: 'Marcia',
-    username: 'marciamagax',
-    password: '123321',
-  },
-  notRegistered: {
-    name: 'Marcia',
-    username: 'not-found',
-    password: '123456',
-  },
-  emptyAllFields: {
-    name: 'Marcia',
+  }),
+  newUser: (timestamp: number): User => makeUser({
+    name: `Marina${timestamp}`,
+    username: `marinamorena${timestamp}`,
+    email: `marina${timestamp}@email.com`,
+    password: 'Senha123',
+  }),
+  emptyAllFields: makeUser({
+    name: '',
     username: '',
+    email: '',
     password: '',
-  },
-  emptyUsername: {
-    name: 'Marcia',
-    username: '',
-    password: '123456',
-  },
-  emptyPassword: {
-    name: 'Marcia',
-    username: 'marciamagax',
-    password: '',
-  },
+    confirmPassword: '',
+  }),
+  invalidEmail: (timestamp: number): User => makeUser({
+    name: `Teste${timestamp}`,
+    username: `testeemailinvalido${timestamp}`,
+    email: 'emailsemarroba',
+    password: 'Senha123',
+  }),
+  mismatchedPasswords: (timestamp: number): User => makeUser({
+    name: `Teste${timestamp}`,
+    username: `teste${timestamp}`,
+    email: `teste${timestamp}@mail.com`,
+    password: 'Senha123',
+    confirmPassword: 'Senha456',
+  }),
+  weakPassword: (timestamp: number): User => makeUser({
+    name: `Teste${timestamp}`,
+    username: `teste${timestamp}`,
+    email: `teste${timestamp}@mail.com`,
+    password: '123',
+  }),
+  invalidUsername: (timestamp: number): User => makeUser({
+    name: `Teste${timestamp}`,
+    username: 'nome com espaço',
+    email: `teste${timestamp}@mail.com`,
+    password: 'Senha123',
+  }),
 }
 
